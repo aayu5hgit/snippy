@@ -1,4 +1,4 @@
-# Shrty - Nuxt 3 URL Shortener
+# Snippy URL - Nuxt 3 URL Shortener
 
 A simple URL shortener built with Nuxt 3 and Supabase, Designed with Tailwind CSS.
 
