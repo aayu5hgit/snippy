@@ -1,11 +1,8 @@
+<script lang="ts" setup></script>
+
 <template>
-    <Navbar/>
-    <slot/>
+  <div>
+    <AppBar />
+    <slot />
+  </div>
 </template>
-
-<script>
-</script>
-
-<style>
-
-</style>

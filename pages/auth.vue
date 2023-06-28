@@ -1,18 +1,97 @@
 <script lang="ts" setup>
-const client = useSupabaseAuthClient();
-const handleGithubLogin = () => {
-    client.auth.signInWithOAuth({
-        provider: 'github',
-    })
-}
-</script>
+import { AuthError } from "@supabase/gotrue-js";
 
+definePageMeta({
+  middleware: "guest",
+});
+const config = useRuntimeConfig();
+const supabaseAuth = useSupabaseAuthClient();
+
+useHead({
+  title: "Authenticate",
+});
+
+const form = ref<{
+  type: "login" | "register";
+  email: string;
+  password: string;
+}>({
+  type: "login",
+  email: "",
+  password: "",
+});
+
+const err = ref<AuthError | null>(null);
+
+const isLoading = ref(false);
+const handleGithubLogin = async () => {
+  const { auth } = useSupabaseAuthClient();
+  try {
+    isLoading.value = true;
+    auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: "http://localhost:3000",
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    isLoading.value = false;
+  }
+};
+const handleAuthSubmit = async (e: Event) => {
+  if (form.value.type === "login") return handleLogin();
+
+  return handleRegister();
+};
+
+const handleLogin = async () => {
+  const { data, error } = await supabaseAuth.auth.signInWithPassword({
+    email: form.value.email,
+    password: form.value.password,
+  });
+
+  if (error) {
+    err.value = error;
+    console.log(error);
+  }
+
+  if (data) {
+    console.log(data);
+
+    // Redirect to home page
+    useRouter().push("/dashboard");
+  }
+};
+
+const handleRegister = async () => {
+  const { data, error } = await supabaseAuth.auth.signUp({
+    email: form.value.email,
+    password: form.value.password,
+  });
+
+  if (error) {
+    err.value = error;
+    console.log(error);
+  }
+
+  if (data) {
+    console.log(data);
+  }
+};
+</script>
 <template>
-  <section class="h-screen grid place-content-center">
-    <div class="container">
-      <div class="card">
+  <div class="auth h-screen grid place-content-center">
+    <div class="container mx-auto">
+      <div v-if="err && err.message" class="card-error mb-5 text-center">
+        {{ err.message }}
+      </div>
+      <div
+        class="card bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-5 w-[300px]"
+      >
         <div class="text-center flex justify-center">
-          <div class="p-4 border rounded-full border-white/10 mb-4">
+          <div class="p-4 border rounded-full border-white/10">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -29,38 +108,53 @@ const handleGithubLogin = () => {
             </svg>
           </div>
         </div>
-        <button class="btn py-5 w-full flex justify-center" @click="handleGithubLogin">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M12 0a12 12 0 1 0 0 24a12 12 0 0 0 0-24zm3.163 21.783h-.093a.513.513 0 0 1-.382-.14a.513.513 0 0 1-.14-.372v-1.406c.006-.467.01-.94.01-1.416a3.693 3.693 0 0 0-.151-1.028a1.832 1.832 0 0 0-.542-.875a8.014 8.014 0 0 0 2.038-.471a4.051 4.051 0 0 0 1.466-.964c.407-.427.71-.943.885-1.506a6.77 6.77 0 0 0 .3-2.13a4.138 4.138 0 0 0-.26-1.476a3.892 3.892 0 0 0-.795-1.284a2.81 2.81 0 0 0 .162-.582c.033-.2.05-.402.05-.604c0-.26-.03-.52-.09-.773a5.309 5.309 0 0 0-.221-.763a.293.293 0 0 0-.111-.02h-.11c-.23.002-.456.04-.674.111a5.34 5.34 0 0 0-.703.26a6.503 6.503 0 0 0-.661.343c-.215.127-.405.249-.573.362a9.578 9.578 0 0 0-5.143 0a13.507 13.507 0 0 0-.572-.362a6.022 6.022 0 0 0-.672-.342a4.516 4.516 0 0 0-.705-.261a2.203 2.203 0 0 0-.662-.111h-.11a.29.29 0 0 0-.11.02a5.844 5.844 0 0 0-.23.763c-.054.254-.08.513-.081.773c0 .202.017.404.051.604c.033.199.086.394.16.582A3.888 3.888 0 0 0 5.702 10a4.142 4.142 0 0 0-.263 1.476a6.871 6.871 0 0 0 .292 2.12c.181.563.483 1.08.884 1.516c.415.422.915.75 1.466.964c.653.25 1.337.41 2.033.476a1.828 1.828 0 0 0-.452.633a2.99 2.99 0 0 0-.2.744a2.754 2.754 0 0 1-1.175.27a1.788 1.788 0 0 1-1.065-.3a2.904 2.904 0 0 1-.752-.824a3.1 3.1 0 0 0-.292-.382a2.693 2.693 0 0 0-.372-.343a1.841 1.841 0 0 0-.432-.24a1.2 1.2 0 0 0-.481-.101c-.04.001-.08.005-.12.01a.649.649 0 0 0-.162.02a.408.408 0 0 0-.13.06a.116.116 0 0 0-.06.1a.33.33 0 0 0 .14.242c.093.074.17.131.232.171l.03.021c.133.103.261.214.382.333c.112.098.213.209.3.33c.09.119.168.246.231.381c.073.134.15.288.231.463c.188.474.522.875.954 1.145c.453.243.961.364 1.476.351c.174 0 .349-.01.522-.03c.172-.028.343-.057.515-.091v1.743a.5.5 0 0 1-.533.521h-.062a10.286 10.286 0 1 1 6.324 0v.005z"
-            /></svg
-          > &nbsp; Sign In With GitHub
+        <button
+          class="btn w-full mt-5"
+          @click="handleGithubLogin"
+          :disabled="isLoading"
+        >
+          Continue with github
         </button>
 
-    
-            <hr class="border-white/20 my-6" >
-        <form>
-            <div>
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email"/>
-            </div>
-            
-            <div>
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password"/>
-            </div>
+        <hr class="border border-white/10 my-5" />
 
-            <button type="submit" class="btn py-5 mt-6 w-full flex justify-center">Login</button>
+        <form action="" @submit.prevent="handleAuthSubmit">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              v-model="form.email"
+              type="text"
+              id="email"
+              class=""
+              placeholder="john@gmail.dev"
+            />
+          </div>
+          <div class="form-group mt-2">
+            <label for="password">Password</label>
+            <input
+              v-model="form.password"
+              type="password"
+              id="password"
+              class=""
+            />
+          </div>
+          <button class="btn w-full my-5 text-sm" type="submit">
+            <template v-if="form.type == 'login'">Login</template>
+            <template v-else>Register</template>
+          </button>
         </form>
+        <div class="text-center">
+          <button
+            class="text-white/50"
+            @click="form.type = form.type === 'register' ? 'login' : 'register'"
+          >
+            <template v-if="form.type == 'login'"
+              >Dont have an account? Register</template
+            >
+            <template v-else>Already have an account? Login</template>
+          </button>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
-
-<style></style>
