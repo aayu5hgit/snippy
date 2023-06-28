@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 body{
-    @apply text-gray-500 bg-black relative;
+    @apply text-white/70 bg-black relative;
 }
 body::before{
     width: 100%;
     height: 100%;
     content: '';
     position: fixed;
-    background: radial-gradient(75.61% 75.61% at 50% 24.39%, #09b4899c 0%, #cecece81 100%);
+    background: radial-gradient(75.61% 75.61% at 50% 24.39%, #09b48980 0%, #b4530900 100%);
     z-index: -1;
 }
 .container {
