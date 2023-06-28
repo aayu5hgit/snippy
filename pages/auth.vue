@@ -61,7 +61,8 @@ const handleLogin = async () => {
     console.log(data);
 
     // Redirect to home page
-    useRouter().push("/dashboard");
+    // useRouter().push("/dashboard");
+    navigateTo('/dashboard');
   }
 };
 
