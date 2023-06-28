@@ -50,7 +50,7 @@ const config = useRuntimeConfig();
           }}</span>
         </div>
       </div>
-      <CopyBtn :data="config.public.appUrl + '/' + link.key" />
+      <CopyBtn :data="'https://snippyurl.vercel.app/' + link.key" />
     </div>
   </div>
 </template>
