@@ -72,7 +72,7 @@ const handleShorten = async (e: Event) => {
   >
     <div class="form-group w-full sm:w-6/12">
       <label for="long_url" class="text-white/30 text-xs mb-1 block"
-        >Long URL</label
+        >Enter Orignal URL</label
       >
       <input
         v-model="form.long_url"
@@ -86,7 +86,7 @@ const handleShorten = async (e: Event) => {
     </div>
     <div class="form-group w-full sm:w-4/12">
       <label for="key" class="text-white/30 text-xs mb-1 block"
-        >Short Key</label
+        >Customise or Use the auto-generated Key</label
       >
       <input
         v-model="form.key"

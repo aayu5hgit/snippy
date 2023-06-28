@@ -13,7 +13,7 @@ const handleLogout = async () => {
 
 <template>
   <div
-    class="backdrop-blur-md border-b border-white/20 fixed top-0 left-0 right-0"
+    class="fixed top-0 left-0 right-0 border-b border-white/20 bg-white/10 backdrop-filter backdrop-blur-lg z-50"
   >
     <nav class="container mx-auto py-4 flex justify-between items-center">
       <NuxtLink to="/" class="navbar-brand text-2xl font-bold text-white">
