@@ -19,7 +19,7 @@ if (!data.value) {
       <div class="flex">
         <h1 class="text-2xl font-bold text-[#0cc496e0]">/{{ data.key }}</h1>
         <CopyBtn
-          :data="config.public.appUrl + '/' + data.key"
+          :data="'https://snippyurl/vercel.app' + '/' + data.key"
           class="ml-5 px-3"
         />
       </div>
