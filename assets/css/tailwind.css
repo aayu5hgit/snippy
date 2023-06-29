@@ -12,6 +12,7 @@ body::before{
     position: fixed;
     background: radial-gradient(75.61% 75.61% at 50% 24.39%, #09b48980 0%, #b4530900 100%);
     z-index: -1;
+    overflow: hidden;
 }
 .container {
    @apply max-w-5xl mx-auto px-5 !important;

@@ -16,14 +16,20 @@ const handleLogout = async () => {
     class="fixed top-0 left-0 right-0 border-b border-white/20 bg-white/10 backdrop-filter backdrop-blur-lg z-50"
   >
     <nav class="container mx-auto py-4 flex justify-between items-center">
+      <NuxtLink class="font-bold font-heading flex justify-between items-center" to="/">
+          <img class="h-9" src="../assets/images/logo.png" alt="logo">
+        <h2 class="text-2xl font-bold ml-4 text-white">SNIPPY URL</h2>
+      </NuxtLink>
+      <!-- <div class="flex justify-center">
       <NuxtLink to="/" class="navbar-brand text-2xl font-bold text-white">
+        <img src="../assets/images/logo.png" width="20" height="20" />
         Snippy URL
       </NuxtLink>
+    </div> -->
       <ul class="flex items-center">
         <li class="mr-6 text-xs">
           <nuxt-link v-if="user" :to="{ name: 'dashboard' }" class="btn"
-            >Dashboard</nuxt-link
-          >
+            >Dashboard</nuxt-link>
           <nuxt-link
             v-else
             :to="{

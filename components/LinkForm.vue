@@ -35,7 +35,7 @@ const handleShorten = async (e: Event) => {
   }
 
   if (!form.value.long_url) {
-    errors.value.long_url = "Long URL is required";
+    errors.value.long_url = "Orignal URL is required";
     return;
   }
 
@@ -71,14 +71,12 @@ const handleShorten = async (e: Event) => {
     @submit.prevent="handleShorten"
   >
     <div class="form-group w-full sm:w-6/12">
-      <label for="long_url" class="text-white/30 text-xs mb-1 block"
-        >Enter Orignal URL</label
-      >
+      <label for="long_url" class="text-white/30 text-xs mb-1 block">Enter Orignal URL</label>
       <input
         v-model="form.long_url"
         for="long_url"
         type="text"
-        placeholder="enter or paste long URL"
+        placeholder="Enter Orignal URL"
       />
       <span v-if="errors.long_url" class="text-xs py-1 text-red-500">
         {{ errors.long_url }}</span
@@ -92,13 +90,12 @@ const handleShorten = async (e: Event) => {
         v-model="form.key"
         for="key"
         type="text"
-        placeholder="enter a key (optional)"
+        placeholder="Enter Key"
         required
         min="6"
       />
       <span v-if="errors.key" class="text-xs py-1 text-red-500">
-        {{ errors.key }}</span
-      >
+        {{ errors.key }}</span>
     </div>
     <div class="w-full sm:w-2/12 flex justify-end self-end">
       <button

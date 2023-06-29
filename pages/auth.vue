@@ -114,7 +114,7 @@ const handleRegister = async () => {
           @click="handleGithubLogin"
           :disabled="isLoading"
         >
-          Continue with github
+          SignUp With GitHub
         </button>
 
         <hr class="border border-white/10 my-5" />
@@ -127,7 +127,7 @@ const handleRegister = async () => {
               type="text"
               id="email"
               class=""
-              placeholder="john@gmail.dev"
+              placeholder="example@gmail.com"
             />
           </div>
           <div class="form-group mt-2">
@@ -141,7 +141,7 @@ const handleRegister = async () => {
           </div>
           <button class="btn w-full my-5 text-sm" type="submit">
             <template v-if="form.type == 'login'">Login</template>
-            <template v-else>Register</template>
+            <template v-else>Create account</template>
           </button>
         </form>
         <div class="text-center">
@@ -150,7 +150,7 @@ const handleRegister = async () => {
             @click="form.type = form.type === 'register' ? 'login' : 'register'"
           >
             <template v-if="form.type == 'login'"
-              >Dont have an account? Register</template
+              >Create an account</template
             >
             <template v-else>Already have an account? Login</template>
           </button>

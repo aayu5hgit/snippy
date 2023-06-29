@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useLinks } from '~~/composables/useLinks';
+
 const { id } = useRoute().params;
 
 const config = useRuntimeConfig();
@@ -46,7 +48,7 @@ if (!data.value) {
         <template v-if="click && typeof click === 'object'">
           <div class="flex justify-between">
             <div class="div">
-              <div class="text-amber-500">{{ click.ip }}</div>
+              <div class="text-[#09b48980]">{{ click.ip }}</div>
               <div class="text-white/50">{{ click.created_at }}</div>
             </div>
             <div class="div">

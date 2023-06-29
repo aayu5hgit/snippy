@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import geoip from "geoip-lite";
 import { Database } from "~~/types/supabase";
+import  useUserAgent  from '~~/composables/useUserAgent';
+import useSupabaseClient from '@nuxtjs/supabase';
+import { useRoute } from "nuxt/dist/app";
 
 const client = useSupabaseClient<Database>();
 const params = useRoute().params;

@@ -19,6 +19,7 @@ useHead({
       >
     </div>
   </section>
+  <Wave/>
 </template>
 
 <style>
