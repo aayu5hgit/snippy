@@ -14,7 +14,7 @@ useHead({
         Transform your long URLs into short or custom URLs and generate shareable links with
         Snippy URL
       </p>
-      <NuxtLink :to="{ name: 'dashboard' }" class="btn text-sm"
+      <NuxtLink :to="{ name: 'dashboard' }" class="btn text-sm z-50"
         >Snip-a-Link</NuxtLink
       >
     </div>
