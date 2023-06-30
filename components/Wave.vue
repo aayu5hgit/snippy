@@ -15,7 +15,8 @@
 	top: 30%;
 	transform: rotate(80deg);
 	left: 0;
-    bottom: 0;
+    	bottom: 0;
+	z-index: 1;
 }
 
 .wave {
