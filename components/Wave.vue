@@ -15,8 +15,13 @@
 	top: 30%;
 	transform: rotate(80deg);
 	left: 0;
+<<<<<<< HEAD
     bottom: 0;
     z-index: -1;
+=======
+    	bottom: 0;
+	z-index: 1;
+>>>>>>> 83158eec96a16a5656697738c7ad653232d0a09d
 }
 
 .wave {
